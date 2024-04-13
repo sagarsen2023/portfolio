@@ -30,7 +30,7 @@ const NavBar = ({contactLink}) => {
           <li><Link to="contact" smooth={true} duration={500} onClick={() => setMenuOpen(false)}>Contact Me</Link></li>
         </ul>
 
-        <button className='contactLink'><a href={contactLink}>Hire Me</a></button>
+        <button className='contactLink'><a href={contactLink} target='_main'>Hire Me</a></button>
       </div>
 
       <div className={"menuItems"} style={
