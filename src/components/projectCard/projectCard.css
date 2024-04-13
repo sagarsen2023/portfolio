@@ -1,0 +1,96 @@
+
+.projectCard-wrapper{
+    margin: 30px 20px;
+}
+
+.card {
+    max-width: 550px;
+    border: 0;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.all-icons{
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.container-card {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(71deg, rgb(20, 20, 20), #1b1b1b, rgb(22, 22, 22));
+    background-clip: padding-box;
+    border-radius: 45px;
+    padding: 40px;
+}
+
+.bg-border {
+    position: relative;
+}
+
+.bg-border::after {
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    left: -1px;
+    right: -1px;
+    content: "";
+    z-index: -1;
+    border-radius: 45px;
+}
+
+.bg-border::after {
+    background: linear-gradient(71deg, #0d1212, #E46400, #120d0d);
+}
+
+.card-title {
+    font-weight: 600;
+    color: white;
+    letter-spacing: -0.02em;
+    line-height: 40px;
+    font-style: normal;
+    font-size: 28px;
+    padding-bottom: 8px;
+}
+
+.card-description {
+    font-weight: 600;
+    line-height: 32px;
+    color: hsla(0, 0%, 100%, 0.5);
+    font-size: 16px;
+    max-width: 470px;
+}
+
+.link{
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.link-btn {
+    border: 1px solid #E46400;
+    background-color: #120d0d;
+    padding: 15px 20px;
+    border-radius: 30px;
+    color: bisque;
+    transition: all 0.5s ease;
+}
+
+.link-btn:hover,
+.link-btn:focus {
+    padding: 15px 35px;
+}
+
+.link-btn a{
+    color: rgb(255, 229, 212);
+    text-decoration: none;
+}
+
+@media only screen and (min-width: 1280px){
+    .link{
+        justify-content: flex-end;
+    }
+}
