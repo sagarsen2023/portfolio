@@ -55,7 +55,7 @@ const ProjectCard = ({ projectName, projectDescription, projectLink, techStack, 
                         })}
                     </div>
                    <div className="link">
-                   <button className='link-btn'><a href={projectLink}>View Project</a></button>
+                   <button className='link-btn'><a href={projectLink} target='_main'>View Project</a></button>
                    </div>
                 </div>
             </div>
