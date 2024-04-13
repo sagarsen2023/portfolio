@@ -22,24 +22,24 @@ const Hero = ({ data }) => {
 
                     <div className="images">
                         <div>
-                            <a href={`mailto:${data.aboutMe.email}`}>
+                            <a href={`mailto:${data.aboutMe.email}`} target='_main'>
                                 <Image src={email} height={40} width={40} alt='logo unavailable' />
                             </a>
                         </div>
                         <div>
-                            <a href={data.aboutMe.linkedin}>
+                            <a href={data.aboutMe.linkedin} target='_main'>
                                 <Image src={linkedin} alt='Images' width={40} height={40} />
                             </a>
                         </div>
                         <div>
-                            <a href={data.aboutMe.github}> <Image src={github} alt='Images' width={40} height={40} />
+                            <a href={data.aboutMe.github} target='_main'> <Image src={github} alt='Images' width={40} height={40} />
                             </a>
                         </div>
                     </div>
 
                     <div className="btndiv">
-                        <button className='button1'><a href={data.aboutMe.linkedin}>Hire Me</a></button>
-                        <button className='button2'><a href={data.aboutMe.resume}>Download CV</a></button>
+                        <button className='button1'><a href={data.aboutMe.linkedin} target='_main'>Hire Me</a></button>
+                        <button className='button2'><a href={data.aboutMe.resume} target='_main'>Download CV</a></button>
                     </div>
                     <div className='exp-project-client'>
                         <div className="experience">
