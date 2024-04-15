@@ -25,17 +25,17 @@ const Contact = ({ contact }) => {
                 </div>
                 <div className="image-links">
                     <div>
-                        <a href={`mailto:${contact.email}`}>
+                        <a href={`mailto:${contact.email}`} target='_main'>
                             <Image src={email} height={40} width={40} alt='logo unavailable' />
                         </a>
                     </div>
                     <div>
-                        <a href={contact.linkedin}>
+                        <a href={contact.linkedin} target='_main'>
                             <Image src={linkedin} alt='Images' width={40} height={40} />
                         </a>
                     </div>
                     <div>
-                        <a href={contact.github}> <Image src={github} alt='Images' width={40} height={40} />
+                        <a href={contact.github} target='_main'> <Image src={github} alt='Images' width={40} height={40} />
                         </a>
                     </div>
                 </div>
