@@ -3,8 +3,8 @@ import "./projects.css";
 import ContentHeader from '@/components/content_header/ContentHeader';
 import ProjectCard from '@/components/projectCard/ProjectCard';
 
-const Projects = ({projectData, langusgeIcons, frameworkIcons, otherIcons }) => {
-  const allIcons = langusgeIcons.concat(frameworkIcons, otherIcons);
+const Projects = ({projectData, languageIcons, frameworkIcons, otherIcons }) => {
+  const allIcons = languageIcons.concat(frameworkIcons, otherIcons);
   return (
     <>
       <div className="project-wrapper">
