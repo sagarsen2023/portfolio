@@ -45,8 +45,8 @@ const page = () => {
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []); // Empty dependency array to run only once on mount
-  const langusgeIcons = [html, css, js, c, python, dart];
+  }, []); 
+  const languageIcons = [html, css, js, c, python, dart];
   const frameworkIcons = [react, express, tailwind, next, flutter];
   const otherIcons = [figma, canva, premiere, resolve];
   return (
@@ -63,7 +63,7 @@ const page = () => {
           <About aboutContent={data.aboutMe.description} progresses={data.progressDetails} langusgeIcons={langusgeIcons} frameworkIcons={frameworkIcons} otherSkills={otherIcons} />
         </div>
         <div id="projects">
-          <Projects projectData={data.recentProjects} langusgeIcons={langusgeIcons} frameworkIcons={frameworkIcons} otherIcons={otherIcons} />
+          <Projects projectData={data.recentProjects} languageIcons={langusgeIcons} frameworkIcons={frameworkIcons} otherIcons={otherIcons} />
         </div>
         <div className="contact">
           <Contact contact={data.aboutMe} />
