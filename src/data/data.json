@@ -79,6 +79,16 @@
     ],
     "recentProjects": [
         {
+            "name" : "Style.Loom",
+            "description" : "This eCommerce platform is a robust and scalable application, meticulously crafted using Next.js with TypeScript, and MongoDB as the database solution. It caters to both end-users and administrators through its comprehensive dual-panel system.",
+            "link" : "https://github.com/sagarsen2023/Style-Loom",
+            "tech" : [
+                "next", 
+                "tailwind", 
+                "js"
+            ]
+        },
+        {
             "name": "RedCell Connect",
             "description": "RedCell Connect is a Flutter and Firebase-based platform that facilitates seamless communication between blood banks and hospitals. By just entering the details of the type of blood group and its quantity, hospitals can see their nearest blood banks. Also they can directly call the blood bank and view their location.",
             "link": "https://github.com/sagarsen2023/RedCell-Connect",
@@ -92,15 +102,6 @@
             "description": "This is a voice assistant program that uses the Bard API to fetch detailed answers to your queries and then provides a summary of the answer using text summarization. The program can open websites, play music, and answer questions using voice commands.",
             "link": "https://github.com/sagarsen2023/Desktop-voice-assistant",
             "tech": [
-                "python"
-            ]
-        },
-        {
-            "name": "Antivirus using Python",
-            "description": "Antivirus Checking Program is a Python-based tool designed for detecting malware and viruses using an extensive database of hash files. With nearly 20 lakh (2 million) combinations of malware/virus hash files, this program offers a powerful solution for identifying malicious software.",
-            "link": "https://github.com/sagarsen2023/Antivirus-Checking-using-Python",
-            "tech": [
-                
                 "python"
             ]
         }
