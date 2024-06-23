@@ -5,7 +5,7 @@ import ProfileImage from '@/components/profileimage/ProfileImage';
 import profile from "../../public/profile.jpg"
 import CircularProgressBar from '@/components/circularprogressbar/CircularProgressBar';
 
-const About = ({ aboutContent, progresses, langusgeIcons, frameworkIcons, otherSkills }) => {
+const About = ({ aboutContent, progresses, languageIcons, frameworkIcons, otherSkills }) => {
     const languageNames = Object.keys(progresses.languages);
     const frameworkNames = Object.keys(progresses.frameworks);
     const otherSkillNames = Object.keys(progresses.others);
@@ -25,7 +25,7 @@ const About = ({ aboutContent, progresses, langusgeIcons, frameworkIcons, otherS
                     <div className="languages">
                         <h3>Languages</h3>
                         <div className="progressbars">
-                           {langusgeIcons.map(
+                           {languageIcons.map(
                             (elem, index) => (
                                 <CircularProgressBar key={index} content={languageNames[index]} logo={elem} progress={progresses.languages[languageNames[index]]}/>
                             )
