@@ -60,7 +60,7 @@ const page = () => {
           <Services serviceContent={data.services} />
         </div>
         <div id="about">
-          <About aboutContent={data.aboutMe.description} progresses={data.progressDetails} langusgeIcons={langusgeIcons} frameworkIcons={frameworkIcons} otherSkills={otherIcons} />
+          <About aboutContent={data.aboutMe.description} progresses={data.progressDetails} langusgeIcons={languageIcons} frameworkIcons={frameworkIcons} otherSkills={otherIcons} />
         </div>
         <div id="projects">
           <Projects projectData={data.recentProjects} languageIcons={langusgeIcons} frameworkIcons={frameworkIcons} otherIcons={otherIcons} />
