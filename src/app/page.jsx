@@ -60,11 +60,7 @@ const page = () => {
           <Services serviceContent={data.services} />
         </div>
         <div id="about">
-<<<<<<< HEAD
           <About aboutContent={data.aboutMe.description} progresses={data.progressDetails} languageIcons={languageIcons} frameworkIcons={frameworkIcons} otherSkills={otherIcons} />
-=======
-          <About aboutContent={data.aboutMe.description} progresses={data.progressDetails} langusgeIcons={languageIcons} frameworkIcons={frameworkIcons} otherSkills={otherIcons} />
->>>>>>> 3e4f62c811028c8cc7b01f830af10e49943da56a
         </div>
         <div id="projects">
           <Projects projectData={data.recentProjects} languageIcons={languageIcons} frameworkIcons={frameworkIcons} otherIcons={otherIcons} />
