@@ -6,7 +6,7 @@ import React from "react";
 function ProjectCard({ project }: { project: ProjectInterface }) {
   return (
     <Link href={project.gitHubLink}>
-      <div className="w-full px-5 py-10 rounded-3xl border border-gray-700 dark:border-gray-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300">
+      <div className="w-full text-pretty px-5 py-10 rounded-3xl border border-gray-700 dark:border-gray-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300">
         <project.icon className="text-4xl" />
         <h1 className="font-bold mt-5 mb-3 text-3xl">{project.title}</h1>
         <p className="text-lg">{project.description}</p>
