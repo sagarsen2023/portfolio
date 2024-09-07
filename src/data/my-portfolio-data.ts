@@ -1,4 +1,5 @@
 import HeroSectionInterface from "@/models/hero-section.model";
+import { ServicesSectionInterface } from "@/models/services-section.model";
 
 const heroSection: HeroSectionInterface = {
   name: "Sagar Sen",
@@ -9,25 +10,70 @@ const heroSection: HeroSectionInterface = {
   cvLink: "",
   socialLinks: [
     {
-      id: "facebook",
+      icon: "facebook",
       url: "",
     },
     {
-      id: "twitter",
+      icon: "twitter",
       url: "",
     },
     {
-      id: "instagram",
+      icon: "instagram",
       url: "",
     },
     {
-      id: "linkedin",
+      icon: "linkedin",
       url: "",
     },
     {
-      id: "github",
+      icon: "github",
       url: "",
     },
   ],
 };
-export { heroSection };
+
+const serVicesSection: ServicesSectionInterface = {
+  title: "What I do",
+  description: "I can help you with a wide range of services.",
+  services: [
+    {
+      id: "front-end-development",
+      title: "Front-End Development",
+      description:
+        "I can design and develop responsive websites with a focus on user experience.",
+      techStack: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "TypeScript",
+        "Next.js",
+        "Tailwind CSS",
+      ],
+    },
+    {
+      id: "back-end-development",
+      title: "Back-End Development",
+      description:
+        "I can design and develop server-side applications, APIs, and databases.",
+      techStack: ["Node.js", "Express.js", "MongoDB", "PostgreSQL"],
+    },
+    {
+      id: "android-development",
+      title: "Android Development",
+      description:
+        "I can design and develop mobile applications for the Android platform.",
+      techStack: ["Flutter", "React-Native"],
+    },
+    {
+      id: "ios-development",
+      title: "iOS Development",
+      description:
+        "I can design and develop mobile applications for the iOS platform.",
+      techStack: ["Flutter", "React-Native"],
+    },
+  ],
+};
+
+const projectSection = {};
+
+export { heroSection, serVicesSection, projectSection };

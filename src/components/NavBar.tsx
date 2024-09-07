@@ -13,50 +13,50 @@ function NavBar() {
   const [menu, setMenu] = useState(false);
 
   return (
-    <div className="mx-auto max-w-2xl lg:max-w-[100rem] relative">
-      <div className="p-4 lg:px-8 absolute backdrop-blur-xl w-full flex justify-between items-center z-50">
-        <h1 className="font-bold text-2xl">Sagar Sen</h1>
-        <button
-          onClick={() => {
-            setMenu(!menu);
-          }}
-          className="block sm:hidden"
-        >
-          {menu ? (
-            <RxCross1 className="text-3xl" />
-          ) : (
-            <BiMenuAltRight className="text-3xl" />
-          )}
-        </button>
-
-        <div className="hidden sm:flex items-center gap-4 absolute right-4">
-          {/* Theme Toggler visible above mobile resolutions */}
+    <div className="sticky top-0 z-50 w-full">
+      <div className="mx-auto max-w-2xl lg:max-w-[100rem]">
+        <div className="p-4 lg:px-8 backdrop-blur-xl bg-white/60 dark:bg-black/50 w-full flex justify-between items-center">
+          <h1 className="font-bold text-2xl">Sagar Sen</h1>
           <button
-            className="flex justify-center items-center p-2 text-sm rounded-3xl border border-gray-700 dark:border-gray-300 transition-colors duration-300 ease-in-out"
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
+            onClick={() => {
+              setMenu(!menu);
+            }}
+            className="block sm:hidden"
           >
-            <div>
-              {resolvedTheme === "dark" ? (
-                <IoMdSunny className="text-xl" />
-              ) : (
-                <FiMoon className="text-xl" />
-              )}
-            </div>
+            {menu ? (
+              <RxCross1 className="text-3xl" />
+            ) : (
+              <BiMenuAltRight className="text-3xl" />
+            )}
           </button>
-          {/* Contact us visible above mobile resolutions */}
-          <Link href="">
-            <AnimatedButtonSmall
-              buttonContext={<span className="mt-0.5">Contact Me</span>}
-            />
-          </Link>
+          <div className="hidden sm:flex items-center gap-4">
+            {/* Theme Toggler visible above mobile resolutions */}
+            <button
+              className="flex justify-center items-center p-2 text-sm rounded-3xl border border-gray-700 dark:border-gray-300 transition-colors duration-300 ease-in-out"
+              onClick={() =>
+                setTheme(resolvedTheme === "dark" ? "light" : "dark")
+              }
+            >
+              <div>
+                {resolvedTheme === "dark" ? (
+                  <IoMdSunny className="text-xl" />
+                ) : (
+                  <FiMoon className="text-xl" />
+                )}
+              </div>
+            </button>
+            {/* Contact us visible above mobile resolutions */}
+            <Link href="">
+              <AnimatedButtonSmall
+                buttonContext={<span className="mt-0.5">Contact Me</span>}
+              />
+            </Link>
+          </div>
         </div>
       </div>
-
       {/* menu bar */}
       <div
-        className={`fixed top-16 z-50 w-full max-w-full backdrop-blur-xl bg-white/70 dark:bg-black/50 h-screen px-4 py-10 shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed  z-50 w-full max-w-full backdrop-blur-xl bg-white/60 dark:bg-black/50 h-screen px-4 py-10 shadow-lg transform transition-transform duration-300 ease-in-out ${
           menu ? "translate-x-0 no-doc-scroll" : "translate-x-full"
         }`}
       >
