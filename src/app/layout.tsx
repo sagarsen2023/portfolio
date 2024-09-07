@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
-import { Ubuntu } from "next/font/google";
+import { Rubik } from "next/font/google";
 import { Providers } from "./providera";
 
-const ubuntu = Ubuntu({ weight: "400", subsets: ["greek"] });
+const rubik = Rubik({ weight: "400", subsets: ["latin"]});
 
 export const metadata: Metadata = {
   title: "Sagar Sen's Portfolio",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ubuntu.className} bg-white text-black dark:bg-black dark:text-white transition-colors duration-300 ease-in-out`}>
+      <body className={`${rubik.className} bg-white text-black dark:bg-black dark:text-white transition-colors duration-300 ease-in-out`}>
         <Providers>
            <NavBar />  
          

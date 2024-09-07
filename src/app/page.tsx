@@ -9,6 +9,7 @@ function Home() {
         name={heroSection.name}
         descriptions={heroSection.descriptions}
         socialLinks={heroSection.socialLinks}
+        cvLink={heroSection.cvLink}
       />
     </main>
   );
