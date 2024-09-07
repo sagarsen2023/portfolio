@@ -122,4 +122,12 @@ const contactSection = {
   phone: "+91 74393 16782",
 }
 
-export { heroSection, serVicesSection, projectSection, contactSection };
+const copyrightSection:{
+  year: number;
+  name: string;
+} = {
+  year: new Date().getFullYear(),
+  name: "Sagar Sen",
+}
+
+export { heroSection, serVicesSection, projectSection, contactSection, copyrightSection };

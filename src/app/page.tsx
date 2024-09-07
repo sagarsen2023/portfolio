@@ -5,10 +5,12 @@ import {
   serVicesSection,
   projectSection,
   contactSection,
+  copyrightSection
 } from "@/data/my-portfolio-data";
 import ProjectSection from "@/components/Projects-Section/ProjectSection";
 import ServicesSection from "@/components/Services-Section/ServicesSection";
 import ContactSection from "@/components/Contact-Section/ContactSection";
+import { FaRegCopyright } from "react-icons/fa";
 
 function Home() {
   return (
@@ -30,6 +32,14 @@ function Home() {
         email={contactSection.email}
         phone={contactSection.phone}
       />
+
+      <div className="pb-5 w-full flex justify-center items-center gap-2">
+        {/* Copyright Section */}
+        <FaRegCopyright/>
+        <span>
+          {copyrightSection.year} {copyrightSection.name} all rights reserved.
+        </span>
+      </div>
     </main>
   );
 }
