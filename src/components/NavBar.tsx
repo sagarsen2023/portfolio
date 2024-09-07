@@ -15,7 +15,7 @@ function NavBar() {
   return (
     <div className="sticky top-0 z-50 w-full">
       <div className="mx-auto max-w-2xl lg:max-w-[100rem]">
-        <div className="p-4 lg:px-8 backdrop-blur-xl bg-white/60 dark:bg-black/50 w-full flex justify-between items-center">
+        <div className="p-4 lg:px-8 backdrop-blur-xl bg-white/60 dark:bg-black/50 w-full flex justify-between items-center duration-300">
           <h1 className="font-bold text-2xl">Sagar Sen</h1>
           <button
             onClick={() => {

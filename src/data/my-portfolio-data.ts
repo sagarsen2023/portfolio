@@ -115,4 +115,11 @@ const projectSection:ProjectSectionInterface = {
   ]
 };
 
-export { heroSection, serVicesSection, projectSection };
+const contactSection = {
+  title: "Hire Me For Your Next Amazing Project",
+  description: "Let\’s make something new, different and more meaningful or make thing more visual or conceptual? Just say hello!",
+  email: "sagarsen.dev@gmail.com",
+  phone: "+91 74393 16782",
+}
+
+export { heroSection, serVicesSection, projectSection, contactSection };

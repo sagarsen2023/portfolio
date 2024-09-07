@@ -4,9 +4,11 @@ import {
   heroSection,
   serVicesSection,
   projectSection,
+  contactSection,
 } from "@/data/my-portfolio-data";
 import ProjectSection from "@/components/Projects-Section/ProjectSection";
 import ServicesSection from "@/components/Services-Section/ServicesSection";
+import ContactSection from "@/components/Contact-Section/ContactSection";
 
 function Home() {
   return (
@@ -21,6 +23,13 @@ function Home() {
       <ServicesSection services={serVicesSection} />
 
       <ProjectSection projects={projectSection} />
+
+      <ContactSection
+        title={contactSection.title}
+        description={contactSection.description}
+        email={contactSection.email}
+        phone={contactSection.phone}
+      />
     </main>
   );
 }
