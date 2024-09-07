@@ -1,6 +1,10 @@
 import HeroSection from "@/components/Hero-Section/HeroSection";
 import React from "react";
-import { heroSection, serVicesSection } from "@/data/my-portfolio-data";
+import {
+  heroSection,
+  serVicesSection,
+  projectSection,
+} from "@/data/my-portfolio-data";
 import ProjectSection from "@/components/Projects-Section/ProjectSection";
 import ServicesSection from "@/components/Services-Section/ServicesSection";
 
@@ -16,7 +20,7 @@ function Home() {
 
       <ServicesSection services={serVicesSection} />
 
-      <ProjectSection />
+      <ProjectSection projects={projectSection} />
     </main>
   );
 }

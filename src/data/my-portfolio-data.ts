@@ -1,5 +1,7 @@
 import HeroSectionInterface from "@/models/hero-section.model";
 import { ServicesSectionInterface } from "@/models/services-section.model";
+import { ProjectSectionInterface } from "@/models/project-section.model";
+import { SiNextdotjs } from "react-icons/si";
 
 const heroSection: HeroSectionInterface = {
   name: "Sagar Sen",
@@ -74,6 +76,40 @@ const serVicesSection: ServicesSectionInterface = {
   ],
 };
 
-const projectSection = {};
+const projectSection:ProjectSectionInterface = {
+  title: "Projects",
+  description: "Here are some of the projects I have worked on.",
+  viewProjectCount: 4,
+  projects: [
+    {
+      icon: SiNextdotjs,
+      title: "Sample Project",
+      description: "This is a sample project. This is a sample project. This is a sample project.",
+      techStack: ["HTML", "CSS", "JavaScript"],
+      gitHubLink: ""
+    },
+    {
+      icon: SiNextdotjs,
+      title: "Sample Project",
+      description: "This is a sample project. This is a sample project. This is a sample project.",
+      techStack: ["HTML", "CSS", "JavaScript"],
+      gitHubLink: ""
+    },
+    {
+      icon: SiNextdotjs,
+      title: "Sample Project",
+      description: "This is a sample project. This is a sample project. This is a sample project.",
+      techStack: ["HTML", "CSS", "JavaScript"],
+      gitHubLink: ""
+    },
+    {
+      icon: SiNextdotjs,
+      title: "Sample Project",
+      description: "This is a sample project. This is a sample project. This is a sample project.",
+      techStack: ["HTML", "CSS", "JavaScript"],
+      gitHubLink: ""
+    }
+  ]
+};
 
 export { heroSection, serVicesSection, projectSection };
