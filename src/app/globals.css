@@ -1,35 +1,3 @@
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body{
-  width: 100%;
-  height: 100%;
-  background-color: #121212;
-  color: #959595;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-
-.cursorCircle {
-  display: none;
-}
-
-@media only screen and (min-width: 950px) {
-  .cursorCircle{
-    display: block;
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: -webkit-linear-gradient(-60deg, #da6003, #F86D00);
-    pointer-events: none; /* Allows the cursor to interact with elements beneath */
-    transform: translate(50%, 160%);
-    z-index: 9999; /* Ensure the circle is above other content */
-    transition: all 0.2s ease;
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
