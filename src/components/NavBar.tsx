@@ -13,7 +13,7 @@ function NavBar() {
   const [menu, setMenu] = useState(false);
 
   return (
-    <div className="sticky top-0 z-50 w-full">
+    <div className="sticky top-0 z-30 w-full">
       <div className="mx-auto max-w-2xl lg:max-w-[100rem]">
         <div className="p-4 lg:px-8 backdrop-blur-xl bg-white/60 dark:bg-black/50 w-full flex justify-between items-center duration-300">
           <h1 className="font-bold text-2xl">Sagar Sen</h1>
@@ -56,7 +56,7 @@ function NavBar() {
       </div>
       {/* menu bar */}
       <div
-        className={`fixed  z-50 w-full max-w-full backdrop-blur-xl bg-white/60 dark:bg-black/50 h-screen px-4 py-10 shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed z-30 w-full max-w-full backdrop-blur-xl bg-white/60 dark:bg-black/50 h-screen px-4 py-10 shadow-lg transform transition-transform duration-300 ease-in-out ${
           menu ? "translate-x-0 no-doc-scroll" : "translate-x-full"
         }`}
       >
