@@ -30,7 +30,7 @@ function HeroSection({
             <span className="text-2xl font-medium">Hello</span>
           </div>
           <div className="text-4xl sm:text-5xl md:text-6xl my-7">
-            <span>Hi I'm </span>
+            <span>Hi I&apos;m </span>
             <span className="font-black">{name}</span>
           </div>
           <div className="flex flex-col gap-2 mr-3">
