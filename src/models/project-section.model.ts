@@ -4,6 +4,9 @@ export interface ProjectSectionInterface {
     title: string;
     description:string;
     viewProjectCount: number;
+    yearsOfExperience: number;
+    totalProjectCount: number;
+    totalClientCount: number;
     projects : ProjectInterface[]
 }
 

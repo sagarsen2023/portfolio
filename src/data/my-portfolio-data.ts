@@ -80,6 +80,9 @@ const projectSection:ProjectSectionInterface = {
   title: "Projects",
   description: "Here are some of the projects I have worked on.",
   viewProjectCount: 4,
+  yearsOfExperience: 3,
+  totalProjectCount: 10,
+  totalClientCount: 5,
   projects: [
     {
       icon: SiNextdotjs,
