@@ -3,7 +3,7 @@ export default interface HeroSectionInterface {
     descriptions: string[];
     cvLink: string;
     socialLinks: {
-        id: "facebook" | "twitter" | "instagram" | "linkedin" | "github";
+        icon: "facebook" | "twitter" | "instagram" | "linkedin" | "github";
         url: string;
     }[];
 }

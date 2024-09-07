@@ -6,5 +6,7 @@ export interface ServiceInterface {
 }
 
 export interface ServicesSectionInterface {
+    title: string;
+    description: string;
     services: ServiceInterface[];
 }

@@ -10,29 +10,31 @@ const heroSection: HeroSectionInterface = {
   cvLink: "",
   socialLinks: [
     {
-      id: "facebook",
+      icon: "facebook",
       url: "",
     },
     {
-      id: "twitter",
+      icon: "twitter",
       url: "",
     },
     {
-      id: "instagram",
+      icon: "instagram",
       url: "",
     },
     {
-      id: "linkedin",
+      icon: "linkedin",
       url: "",
     },
     {
-      id: "github",
+      icon: "github",
       url: "",
     },
   ],
 };
 
 const serVicesSection: ServicesSectionInterface = {
+  title: "What I do",
+  description: "I can help you with a wide range of services.",
   services: [
     {
       id: "front-end-development",

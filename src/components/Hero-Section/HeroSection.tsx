@@ -3,15 +3,9 @@ import HeroSectionInterface from "@/models/hero-section.model";
 import profilePicture from "@/assets/profile-picture.jpg";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaFacebook,
-  FaLinkedin,
-  FaTwitter,
-  FaGithub,
-  FaInstagram,
-} from "react-icons/fa";
 import AnimatedButtonSmall from "../Animated-Button-Small";
 import { FaFilePdf } from "react-icons/fa6";
+import GenerateIcon from "../GenerateIcon";
 
 function HeroSection({
   name,
@@ -74,21 +68,7 @@ function HeroSection({
       <div className="w-full flex justify-center lg:justify-start items-center gap-10 my-10">
         {socialLinks.map((socialLink, index) => (
           <Link key={index} href={socialLink.url}>
-            {socialLink.id === "facebook" && (
-              <FaFacebook className="text-3xl cursor-pointer" />
-            )}
-            {socialLink.id === "linkedin" && (
-              <FaLinkedin className="text-3xl cursor-pointer" />
-            )}
-            {socialLink.id === "twitter" && (
-              <FaTwitter className="text-3xl cursor-pointer" />
-            )}
-            {socialLink.id === "github" && (
-              <FaGithub className="text-3xl cursor-pointer" />
-            )}
-            {socialLink.id === "instagram" && (
-              <FaInstagram className="text-3xl cursor-pointer" />
-            )}
+           <GenerateIcon techName={socialLink.icon} className="text-4xl" />
           </Link>
         ))}
       </div>
