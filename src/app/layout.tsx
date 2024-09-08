@@ -22,7 +22,7 @@ export default function RootLayout({
         <Providers>
            <NavBar />  
          
-          <div className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-[100rem] lg:px-8">{children}</div>
+          <div className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-[100rem] lg:px-8 select-none">{children}</div>
         </Providers>
       </body>
     </html>

@@ -34,7 +34,10 @@ function Home() {
         title={contactSection.title}
         description={contactSection.description}
         email={contactSection.email}
-        phone={contactSection.phone}
+        emailBody={contactSection.emailBody}
+        emailSubject={contactSection.emailSubject}
+        whatsApp={contactSection.whatsApp}
+        whatsAppCustomMessage={contactSection.whatsAppCustomMessage}
       />
 
       <div className="pb-5 w-full flex justify-center items-center gap-2">

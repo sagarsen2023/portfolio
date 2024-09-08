@@ -21,6 +21,8 @@ import {
   SiFlutter,
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
+import { IoLogoFirebase } from "react-icons/io5";
+import { DiDart } from "react-icons/di";
 
 const techIcons: {
   [key: string]: IconType;
@@ -30,7 +32,7 @@ const techIcons: {
   "javascript": FaJs,
   "typescript": SiTypescript,
   "next.js": SiNextdotjs,
-  "tailwind css": SiTailwindcss,
+  "tailwind-css": SiTailwindcss,
   "node.js": FaNodeJs,
   "express.js": SiExpress,
   "mongodb": SiMongodb,
@@ -43,6 +45,8 @@ const techIcons: {
   "twitter": FaTwitter,
   "github": FaGithub,
   "instagram": FaInstagram,
+  "firebase": IoLogoFirebase,
+  "dart": DiDart,
 };
 
 const GenerateIcon = ({
