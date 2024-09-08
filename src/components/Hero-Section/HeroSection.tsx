@@ -67,7 +67,7 @@ function HeroSection({
       {/* Social Icons Section */}
       <div className="w-full flex justify-center lg:justify-start items-center gap-10 my-10">
         {socialLinks.map((socialLink, index) => (
-          <Link key={index} href={socialLink.url}>
+          <Link key={index} href={socialLink.url} target="_blank">
            <GenerateIcon techName={socialLink.icon} className="text-4xl" />
           </Link>
         ))}
