@@ -1,6 +1,5 @@
 "use client";
 import { useTheme } from "next-themes";
-import Link from "next/link";
 import React, { useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { FiMoon } from "react-icons/fi";
@@ -11,6 +10,13 @@ import AnimatedButtonSmall from "./Animated-Button-Small";
 function NavBar() {
   const { setTheme, resolvedTheme } = useTheme();
   const [menu, setMenu] = useState(false);
+
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <div className="sticky top-0 z-30 w-full shadow-md dark:shadow-gray-400/30">
@@ -48,11 +54,11 @@ function NavBar() {
               </div>
             </button>
             {/* Contact us visible above mobile resolutions */}
-            <Link href="" aria-label="Contact me">
+            <div aria-label="Contact me" onClick={scrollToBottom}>
               <AnimatedButtonSmall
                 buttonContext={<span className="mt-0.5">Contact Me</span>}
               />
-            </Link>
+            </div>
           </div>
         </div>
       </div>
