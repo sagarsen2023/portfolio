@@ -29,7 +29,7 @@ function ContactSection({
               {description}
             </p>
             <div className="flex justify-start items-center mb-4 ">
-              <Link href={`mailto:${email}?subject=${subject}&body=${body}`}>
+              <Link href={`mailto:${email}?subject=${subject}&body=${body}`} aria-label="Mailto link">
                 <MdEmail className="inline text-2xl mr-2" />
                 <h3 className="inline text-xl lg:text-2xl mb-0.5 opacity-70">
                   {email}
@@ -39,7 +39,7 @@ function ContactSection({
 
             <div className="flex justify-start items-center">
               <Link
-                href={`https://wa.me/${phoneNo}?text=${whatsAppCustomMessage}`}
+                href={`https://wa.me/${phoneNo}?text=${whatsAppCustomMessage}`} aria-label="Whatsapp link"
               >
                 <FaWhatsapp className="inline text-2xl mr-2 mb-1" />
                 <h3 className="inline text-xl lg:text-2xl opacity-70">

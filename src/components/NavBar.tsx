@@ -18,6 +18,7 @@ function NavBar() {
         <div className="p-4 lg:px-8 backdrop-blur-xl bg-white/60 dark:bg-black/50 w-full flex justify-between items-center duration-300">
           <h1 className="font-bold text-2xl">Sagar Sen</h1>
           <button
+          aria-label="Menu Button"
             onClick={() => {
               setMenu(!menu);
             }}
@@ -32,6 +33,7 @@ function NavBar() {
           <div className="hidden sm:flex items-center gap-4">
             {/* Theme Toggler visible above mobile resolutions */}
             <button
+              aria-label="Toggle Theme"
               className="flex justify-center items-center p-2 text-sm rounded-3xl border border-gray-700 dark:border-gray-300 transition-colors duration-300 ease-in-out"
               onClick={() =>
                 setTheme(resolvedTheme === "dark" ? "light" : "dark")
@@ -46,7 +48,7 @@ function NavBar() {
               </div>
             </button>
             {/* Contact us visible above mobile resolutions */}
-            <Link href="">
+            <Link href="" aria-label="Contact me">
               <AnimatedButtonSmall
                 buttonContext={<span className="mt-0.5">Contact Me</span>}
               />
@@ -61,6 +63,7 @@ function NavBar() {
         }`}
       >
         <button
+          aria-label="Change Theme Button"
           className="px-4 py-2 w-full rounded-lg border border-gray-300 dark:border-gray-400 flex justify-between items-center transition-colors duration-300 ease-in-out"
           onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
         >
