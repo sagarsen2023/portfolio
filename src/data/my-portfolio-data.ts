@@ -1,6 +1,7 @@
 import HeroSectionInterface from "@/models/hero-section.model";
 import { ServicesSectionInterface } from "@/models/services-section.model";
 import { ProjectSectionInterface } from "@/models/project-section.model";
+import { ProfessionalBackgroundSectionInterface } from "@/models/professional-section.model";
 import { SiNextdotjs } from "react-icons/si";
 
 const heroSection: HeroSectionInterface = {
@@ -76,7 +77,7 @@ const serVicesSection: ServicesSectionInterface = {
   ],
 };
 
-const projectSection:ProjectSectionInterface = {
+const projectSection: ProjectSectionInterface = {
   title: "Projects",
   description: "Here are some of the projects I have worked on.",
   viewProjectCount: 4,
@@ -87,47 +88,103 @@ const projectSection:ProjectSectionInterface = {
     {
       icon: SiNextdotjs,
       title: "Sample Project",
-      description: "This is a sample project. This is a sample project. This is a sample project.",
+      description:
+        "This is a sample project. This is a sample project. This is a sample project.",
       techStack: ["HTML", "CSS", "JavaScript"],
-      gitHubLink: ""
+      gitHubLink: "",
     },
     {
       icon: SiNextdotjs,
       title: "Sample Project",
-      description: "This is a sample project. This is a sample project. This is a sample project.",
+      description:
+        "This is a sample project. This is a sample project. This is a sample project.",
       techStack: ["HTML", "CSS", "JavaScript"],
-      gitHubLink: ""
+      gitHubLink: "",
     },
     {
       icon: SiNextdotjs,
       title: "Sample Project",
-      description: "This is a sample project. This is a sample project. This is a sample project.",
+      description:
+        "This is a sample project. This is a sample project. This is a sample project.",
       techStack: ["HTML", "CSS", "JavaScript"],
-      gitHubLink: ""
+      gitHubLink: "",
     },
     {
       icon: SiNextdotjs,
       title: "Sample Project",
-      description: "This is a sample project. This is a sample project. This is a sample project.",
+      description:
+        "This is a sample project. This is a sample project. This is a sample project.",
       techStack: ["HTML", "CSS", "JavaScript"],
-      gitHubLink: ""
-    }
-  ]
+      gitHubLink: "",
+    },
+  ],
+};
+
+const professionalBackground: ProfessionalBackgroundSectionInterface = {
+  title: "Professional Background",
+  description:
+    "I have been working as a freelance web developer for the past 3 years.",
+  education: [
+    {
+      degree: "Bachelor of Computer Science",
+      institute: "institute 1",
+      duration: "2015 - 2018",
+    },
+    {
+      degree: "Master of Computer Science",
+      institute: "institute 1",
+      duration: "2018 - 2020",
+    },
+  ],
+  experience: [
+    {
+      title: "Front-End Developer",
+      company: "Company 1",
+      duration: "2018 - 2019",
+      description: "I worked as a front-end developer at Company 1.",
+    },
+    {
+      title: "Back-End Developer",
+      company: "Company 1",
+      duration: "2019 - 2020",
+      description: "I worked as a back-end developer at Company 2.",
+    },
+    {
+      title: "Mern-Stack Developer",
+      company: "Company 2",
+      duration: "2020 - 2021",
+      description: "I worked as a full-stack developer at Company 3.",
+    },
+    {
+      title: "Full-Stack Developer",
+      company: "Company 2",
+      duration: "2020 - 2021",
+      description: "I worked as a full-stack developer at Company 3.",
+    },
+  ],
 };
 
 const contactSection = {
   title: "Hire Me For Your Next Amazing Project",
-  description: "Let\’s make something new, different and more meaningful or make thing more visual or conceptual? Just say hello!",
+  description:
+    "Let’s make something new, different and more meaningful or make thing more visual or conceptual? Just say hello!",
   email: "sagarsen.dev@gmail.com",
   phone: "+91 74393 16782",
-}
+};
 
-const copyrightSection:{
+const copyrightSection: {
   year: number;
   name: string;
 } = {
   year: new Date().getFullYear(),
   name: "Sagar Sen",
-}
+};
 
-export { heroSection, serVicesSection, projectSection, contactSection, copyrightSection };
+export {
+  heroSection,
+  serVicesSection,
+  projectSection,
+  professionalBackground,
+  contactSection,
+  copyrightSection,
+};

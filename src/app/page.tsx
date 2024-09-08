@@ -4,6 +4,7 @@ import {
   heroSection,
   serVicesSection,
   projectSection,
+  professionalBackground,
   contactSection,
   copyrightSection
 } from "@/data/my-portfolio-data";
@@ -11,6 +12,7 @@ import ProjectSection from "@/components/Projects-Section/ProjectSection";
 import ServicesSection from "@/components/Services-Section/ServicesSection";
 import ContactSection from "@/components/Contact-Section/ContactSection";
 import { FaRegCopyright } from "react-icons/fa";
+import ProfessionalSection from "@/components/Professional-Section/ProfessionalSection";
 
 function Home() {
   return (
@@ -25,6 +27,8 @@ function Home() {
       <ServicesSection services={serVicesSection} />
 
       <ProjectSection projects={projectSection} />
+
+      <ProfessionalSection professionalBackground={professionalBackground}/>
 
       <ContactSection
         title={contactSection.title}
