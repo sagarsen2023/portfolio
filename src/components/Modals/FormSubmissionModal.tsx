@@ -31,6 +31,7 @@ function FormSubmissionModal({
           </div>
           <p className="text-center mt-5 text-lg">{message}</p>
           <button
+            aria-label="Close Modal"
             onClick={onClose}
             className="w-full mt-10 px-5 py-2 flex justify-center items-center rounded-lg bg-black text-white dark:bg-white dark:text-black transition-colors duration-300 ease-in-out hover:bg-white hover:border hover:border-black hover:text-black dark:hover:border-white dark:hover:bg-black dark:hover:text-white"
           >
