@@ -40,7 +40,7 @@ function HeroSection({
             ))}
           </div>
           <div className="mt-5">
-            <Link href={cvLink}>
+            <Link href={cvLink} aria-label="CV Link">
               <AnimatedButtonSmall
                 buttonContext={
                   <div className="flex justify-center items-center gap-3">
@@ -67,7 +67,7 @@ function HeroSection({
       {/* Social Icons Section */}
       <div className="w-full flex justify-center lg:justify-start items-center gap-10 my-10">
         {socialLinks.map((socialLink, index) => (
-          <Link key={index} href={socialLink.url} target="_blank">
+          <Link key={index} href={socialLink.url} target="_blank" aria-label="Social Links">
            <GenerateIcon techName={socialLink.icon} className="text-4xl" />
           </Link>
         ))}

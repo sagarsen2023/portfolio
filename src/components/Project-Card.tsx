@@ -6,7 +6,7 @@ import GenerateIcon from "./GenerateIcon";
 
 function ProjectCard({ project }: { project: ProjectInterface }) {
   return (
-    <Link href={project.gitHubLink} target="_blank">
+    <Link href={project.gitHubLink} target="_blank" aria-label="Project link for github">
       <div className="w-full h-full flex flex-col justify-between text-pretty px-5 py-10 rounded-3xl border border-gray-700 dark:border-gray-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300">
         <div>
           <project.icon className="text-4xl" />
