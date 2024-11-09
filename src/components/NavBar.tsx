@@ -6,6 +6,7 @@ import { FiMoon } from "react-icons/fi";
 import { IoMdSunny } from "react-icons/io";
 import { RxCross1 } from "react-icons/rx";
 import AnimatedButtonSmall from "./Animated-Button-Small";
+import Link from "next/link";
 
 function NavBar() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -14,7 +15,7 @@ function NavBar() {
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -22,9 +23,11 @@ function NavBar() {
     <div className="sticky top-0 z-30 w-full shadow-md dark:shadow-gray-400/30">
       <div className="mx-auto max-w-2xl lg:max-w-[100rem]">
         <div className="p-4 lg:px-8 backdrop-blur-xl bg-white/60 dark:bg-black/50 w-full flex justify-between items-center duration-300">
-          <h1 className="font-bold text-2xl">Sagar Sen</h1>
+          <Link href={"/"}>
+            <h1 className="font-bold text-2xl">Sagar Sen</h1>
+          </Link>
           <button
-          aria-label="Menu Button"
+            aria-label="Menu Button"
             onClick={() => {
               setMenu(!menu);
             }}

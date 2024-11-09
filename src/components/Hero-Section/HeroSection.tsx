@@ -54,7 +54,7 @@ function HeroSection({
         </div>
 
         {/* Image Container */}
-        <div className="relative mt-10 h-[400px] sm:w-[500px] sm:h-[500px] lg:w-[550px] lg:h-[550px] shadow-2xl dark:border dark:border-gray-300 rounded-xl">
+        <div className="relative mt-10 h-[400px] w-full sm:w-[500px] sm:h-[500px] lg:w-[550px] lg:h-[550px] shadow-2xl dark:border dark:border-gray-300 rounded-xl">
           <Image
             src={profilePicture}
             alt="Profile Picture"
@@ -67,8 +67,13 @@ function HeroSection({
       {/* Social Icons Section */}
       <div className="w-full flex justify-center lg:justify-start items-center gap-10 my-10">
         {socialLinks.map((socialLink, index) => (
-          <Link key={index} href={socialLink.url} target="_blank" aria-label="Social Links">
-           <GenerateIcon techName={socialLink.icon} className="text-4xl" />
+          <Link
+            key={index}
+            href={socialLink.url}
+            target="_blank"
+            aria-label="Social Links"
+          >
+            <GenerateIcon techName={socialLink.icon} className="text-4xl" />
           </Link>
         ))}
       </div>
