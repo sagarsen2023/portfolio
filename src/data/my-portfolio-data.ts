@@ -13,7 +13,7 @@ const heroSection: HeroSectionInterface = {
     "Of course, there’s so much more to me than just a few fancy titles. Scroll down and get to know me,",
   ],
   cvLink:
-    "https://drive.google.com/file/d/1Cw9qrut5U2lLgmjf5fG3tHf82CuYA1Ms/view?usp=share_link",
+    "https://drive.google.com/file/d/1gtDjUjv2JFDsP__-9-mKmlUI1cdAR8Ov/view?usp=sharing",
   socialLinks: [
     {
       icon: "facebook",
