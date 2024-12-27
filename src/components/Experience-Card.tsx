@@ -23,12 +23,15 @@ function ExperienceCard({ experience }: { experience: ExperienceInterface[] }) {
                   <p>{experience.company}</p>
                   <p>{experience.duration}</p>
                 </div>
-                <div className="text-sm lg:text-lg">{experience.description}</div>
+                <div className="text-sm lg:text-lg">
+                  {experience.description}
+                </div>
               </div>
             );
           }
           return (
             <div key={index} className="mb-3 relative">
+              <div className="absolute top-1.5 -left-[40px] p-2 bg-black dark:bg-white rounded-full" />
               <div className="text-lg lg:text-xl font-semibold">
                 {experience.title}
               </div>

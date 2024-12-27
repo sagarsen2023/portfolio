@@ -137,7 +137,13 @@ const professionalBackground: ProfessionalBackgroundSectionInterface = {
     {
       title: "Trainee Software Engineer",
       company: "Broadifi Tech Private Limited",
-      duration: "July 2024 - Present",
+      duration: "July 2024 - December 2024",
+      description: "I am working as a front-end developer here.",
+    },
+    {
+      title: "Front End Developer",
+      company: "Broadifi Tech Private Limited",
+      duration: "December 2024 - Present",
       description: "I am working as a front-end developer here.",
     },
   ],
