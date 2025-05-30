@@ -1,8 +1,8 @@
 <div align="center">
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=50&duration=1000&pause=2500&color=F7F7F7&center=true&vCenter=true&width=1200&lines=Hi+there!;I+am+Sagar+Sen%2C+a+full+stack+developer.)](https://git.io/typing-svg)
+![](https://komarev.com/ghpvc/?username=sagarsen2023&style=for-the-badge)
 
-[![Github](https://visitcount.itsvg.in/api?id=sagarsen2023&icon=0&color=0)](https://visitcount.itsvg.in)
 
 # Sagar Sen
 
@@ -67,6 +67,7 @@ B.Tech 3rd year student working as a Front-end Developer at Broadifi Tech Pvt Lt
 
 ## 📊 GitHub Stats
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=sagarsen2023&theme=tokyonight&hide_border=true&count_private=true&layout=compact) <br/>
+![](https://github-readme-stats.vercel.app/api?username=sagarsen2023&theme=tokyonight&hide_border=true&include_all_commits=false&count_private=false)<br/>
 ![](https://github-readme-streak-stats.herokuapp.com/?user=sagarsen2023&theme=tokyonight&hide_border=true)<br/>
 
 ## 🏆 GitHub Trophies
