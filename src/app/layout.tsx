@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
-import { Rubik } from "next/font/google";
-import { Providers } from "./providera";
-
-const rubik = Rubik({ weight: "400", subsets: ["latin"]});
 
 export const metadata: Metadata = {
-  title: "Sagar Sen's Portfolio",
-  description: "Let's build something together!",
+  title: "Sagar Sen — Developer",
+  description: "Full-Stack Developer — React · Node · Cloud. I architect systems that are robust, elegant, and built to outlive the sprint.",
 };
 
 export default function RootLayout({
@@ -18,12 +13,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${rubik.className} bg-white text-black dark:bg-black dark:text-white transition-colors duration-300 ease-in-out min-h-screen flex flex-col`}>
-        <Providers>
-           <NavBar />  
-         
-           <div className="mx-auto flex flex-col flex-grow w-full max-w-2xl px-4 sm:px-6 lg:max-w-[100rem] lg:px-8 overflow-y-auto">{children}</div>
-        </Providers>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        {children}
       </body>
     </html>
   );
