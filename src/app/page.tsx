@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
 
 /* ═══════════════════════════════════════════════════════════════
    THEME SYSTEM
@@ -79,9 +78,9 @@ const TECHS = [
 const PROJECTS = [
   {
     num: "01",
-    name: "Next JS Performance Analysis",
-    sub: "Data-fetching strategies · Next.js · TypeScript · Tailwind CSS",
-    tags: ["Next.js", "TypeScript"],
+    name: "CalmUI",
+    sub: "A CLI scaffolding tool · Next.js · Vite ",
+    tags: ["Next.js", "Vite", "TypeScript"],
     link: "https://github.com/sagarsen2023/next-js-performance-analysis",
   },
   {
@@ -97,13 +96,6 @@ const PROJECTS = [
     sub: "Blood bank communication · Flutter · Firebase · Dart",
     tags: ["Mobile", "Flutter"],
     link: "https://github.com/sagarsen2023/RedCell-Connect",
-  },
-  {
-    num: "04",
-    name: "Uber Clone",
-    sub: "Ride-sharing replica · React Native · TypeScript · Tailwind",
-    tags: ["Mobile", "React Native"],
-    link: "https://github.com/sagarsen2023/uber-clone",
   },
 ];
 
@@ -161,6 +153,7 @@ export default function Home() {
     document.addEventListener("mousemove", handler);
     return () => document.removeEventListener("mousemove", handler);
   }, [theme]);
+
 
   // Reveal on scroll
   useEffect(() => {
@@ -344,55 +337,21 @@ export default function Home() {
         </div>
         <div className="hero-scanline" />
 
-        {/* Geometric Art */}
-        <div className="hero-art-abs" style={{ background: "transparent" }}>
-          <svg
-            viewBox="0 0 280 374"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ width: "100%", height: "100%", overflow: "visible" }}
-          >
-            {/* Large orbit ring — the canvas */}
-            <motion.circle
-              cx="140" cy="187" r="100"
-              stroke="var(--ink3)" strokeWidth="0.6"
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 2, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
-              style={{ originX: "140px", originY: "187px" }}
-            />
-
-            {/* Rotating accent arc — the movement */}
-            <motion.g
-              style={{ originX: "140px", originY: "187px" }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
-            >
-              <path
-                d="M140 87 A 100 100 0 0 1 240 187"
-                stroke="var(--acc)" strokeWidth="1.5" strokeLinecap="round"
-              />
-            </motion.g>
-
-            {/* Orbiting dot — the wanderer */}
-            <motion.g
-              style={{ originX: "140px", originY: "187px" }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            >
-              <circle cx="240" cy="187" r="3" fill="var(--acc)" />
-            </motion.g>
-
-            {/* Center mark — the anchor */}
-            <motion.circle
-              cx="140" cy="187" r="2"
-              fill="var(--ink2)"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 2.2, duration: 0.5, type: "spring" }}
-            />
-          </svg>
-        </div>
+        {/* Concentric circles art */}
+        <svg
+          className="hero-art-abs"
+          viewBox="0 0 260 260"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          style={{
+            opacity: loaderDone ? 0.5 : 0,
+            transition: "opacity 1.2s ease 2s",
+          }}
+        >
+          <circle cx="130" cy="130" r="120" stroke="var(--acc)" strokeWidth="1.5" />
+          <circle cx="130" cy="130" r="60" stroke="var(--acc)" strokeWidth="1.5" />
+        </svg>
 
         <div className="hero-name-block">
           <div className="name-row-1">
@@ -405,20 +364,7 @@ export default function Home() {
                 clipPath: "inset(0 100% 0 0)",
               }}
             >
-              Sagar
-            </span>
-          </div>
-          <div className="name-row-2">
-            <span
-              className="hero-second"
-              style={{
-                animation: loaderDone
-                  ? "wipeL 1.2s cubic-bezier(.16,1,.3,1) .25s forwards"
-                  : "none",
-                clipPath: "inset(0 0 0 100%)",
-              }}
-            >
-              SEN<span className="name-acc">.</span>
+              Sagar Sen
             </span>
           </div>
         </div>
