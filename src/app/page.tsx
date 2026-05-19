@@ -79,9 +79,9 @@ const TECHS = [
 const PROJECTS = [
   {
     num: "01",
-    name: "Next JS Performance Analysis",
-    sub: "Data-fetching strategies · Next.js · TypeScript · Tailwind CSS",
-    tags: ["Next.js", "TypeScript"],
+    name: "CalmUI",
+    sub: "A CLI tool - Next.js · Vite ",
+    tags: ["Next.js", "Vite", "TypeScript"],
     link: "https://github.com/sagarsen2023/next-js-performance-analysis",
   },
   {
@@ -97,13 +97,6 @@ const PROJECTS = [
     sub: "Blood bank communication · Flutter · Firebase · Dart",
     tags: ["Mobile", "Flutter"],
     link: "https://github.com/sagarsen2023/RedCell-Connect",
-  },
-  {
-    num: "04",
-    name: "Uber Clone",
-    sub: "Ride-sharing replica · React Native · TypeScript · Tailwind",
-    tags: ["Mobile", "React Native"],
-    link: "https://github.com/sagarsen2023/uber-clone",
   },
 ];
 
