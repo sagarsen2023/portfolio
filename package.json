@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "seo:images": "node scripts/generate-seo-images.mjs"
+    "seo:images": "node scripts/generate-seo-images.mjs",
+    "deploy": "git pull && npm run build && rm -rf /var/www/sagarsen.dev/* && mv dist/* /var/www/sagarsen.dev/ && sudo systemctl restart nginx"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
