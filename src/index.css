@@ -1,1 +1,201 @@
 @import "tailwindcss";
+
+@custom-variant mobile (@media (max-width: 900px));
+@custom-variant loading (:where(html.is-loading) &);
+
+@theme {
+  --color-surface-0: #050505;
+  --color-surface-1: #0b0b0b;
+  --color-surface-2: #121212;
+  --color-surface-3: #1a1a1a;
+  --color-fg: #f2efea;
+  --color-muted: #8a8780;
+  --color-accent: #a6ff00;
+  --color-ink: #0b0b0b;
+  --color-ink-muted: #5c5a55;
+
+  --font-display: "Anton", Impact, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --spacing-gx: clamp(20px, 3vw, 44px);
+
+  --animate-grain: grain 1.1s steps(6) infinite;
+  --animate-vline: vline 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+
+  @keyframes grain {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    17% {
+      transform: translate(-5%, -10%);
+    }
+    33% {
+      transform: translate(-15%, 5%);
+    }
+    50% {
+      transform: translate(7%, -12%);
+    }
+    67% {
+      transform: translate(-9%, 14%);
+    }
+    83% {
+      transform: translate(12%, 4%);
+    }
+  }
+
+  @keyframes vline {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-surface-0);
+    line-height: normal;
+  }
+
+  html.is-loading {
+    overflow: hidden;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    background: var(--color-surface-0);
+    color: var(--color-fg);
+    font-family: var(--font-serif);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--color-fg);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  a:hover {
+    color: var(--color-accent);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-surface-0);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    html,
+    body,
+    a,
+    button,
+    input {
+      cursor: none;
+    }
+  }
+}
+
+@layer components {
+  .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    line-height: 1.5;
+  }
+
+  .label b {
+    color: var(--color-accent);
+    font-weight: 400;
+  }
+
+  .disp {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.86;
+    letter-spacing: -0.005em;
+  }
+
+  .it {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Reveal masks: the inner span slides in from below the clipped edge. */
+  .mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.06em;
+  }
+
+  .mask > span {
+    display: block;
+    will-change: transform;
+  }
+
+  .ln {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+  }
+
+  .ln > span {
+    display: block;
+  }
+
+  /* Placeholder artwork for project screenshots; tinted by the --h hue. */
+  .shot-placeholder {
+    background:
+      radial-gradient(55% 65% at 72% 28%, oklch(0.5 0.13 var(--h) / 0.55), transparent 70%),
+      radial-gradient(45% 55% at 18% 92%, oklch(0.38 0.09 var(--h) / 0.5), transparent 70%),
+      repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 11px),
+      #090909;
+  }
+
+  .shot-placeholder::before {
+    content: "";
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    top: 6%;
+    height: 34px;
+    border-bottom: 1px solid rgba(242, 239, 234, 0.08);
+    background:
+      radial-gradient(circle at 10px 50%, rgba(242, 239, 234, 0.25) 3px, transparent 4px),
+      radial-gradient(circle at 24px 50%, rgba(242, 239, 234, 0.25) 3px, transparent 4px),
+      radial-gradient(circle at 38px 50%, rgba(242, 239, 234, 0.25) 3px, transparent 4px);
+  }
+}
