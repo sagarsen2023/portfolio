@@ -1,0 +1,5 @@
+{
+  "calmui": "1.1.2",
+  "template": "vite-react",
+  "typescript": true
+}
