@@ -2,8 +2,8 @@ import { Fragment, useRef } from "react";
 import RevealWords from "@/components/reveal-words";
 import { GLIMPSE_ROWS, LINKS } from "@/constants/portfolio";
 import useWordReveal from "@/hooks/use-word-reveal";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { prefersReducedMotion } from "@/utils/media";
+import { gsap, playWhileVisible, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { isLowEndDevice, prefersReducedMotion } from "@/utils/media";
 
 /** "Only the beginning": scroll-boosted marquees of more work and topics. */
 function GlimpseSection({ ready }: { ready: boolean }) {
@@ -19,13 +19,16 @@ function GlimpseSection({ ready }: { ready: boolean }) {
       const section = sectionRef.current;
       if (!ready || !section) return;
 
-      // The glows orbit slowly and swell as the section scrolls past.
-      gsap.to(glowRef.current, {
-        rotation: 360,
-        duration: 90,
-        repeat: -1,
-        ease: "none",
-      });
+      // The glows swell as the section scrolls past and, on capable devices,
+      // orbit slowly.
+      const orbit = isLowEndDevice
+        ? null
+        : gsap.to(glowRef.current, {
+            rotation: 360,
+            duration: 90,
+            repeat: -1,
+            ease: "none",
+          });
       gsap.fromTo(
         glowRef.current,
         { scale: 0.6 },
@@ -44,10 +47,10 @@ function GlimpseSection({ ready }: { ready: boolean }) {
       gsap.from("[data-reveal]", {
         yPercent: 100,
         opacity: 0,
-        duration: 1.2,
-        stagger: 0.1,
+        duration: 0.9,
+        stagger: 0.08,
         ease: "expo.out",
-        scrollTrigger: { trigger: headRef.current, start: "top 80%" },
+        scrollTrigger: { trigger: headRef.current, start: "top 85%" },
       });
 
       // Alternate directions per row; scroll velocity briefly speeds them up.
@@ -67,8 +70,22 @@ function GlimpseSection({ ready }: { ready: boolean }) {
                 repeat: -1,
               })
         );
+      const loops = orbit ? [...tracks, orbit] : tracks;
+      if (prefersReducedMotion) loops.forEach((loop) => loop.pause());
+      else playWhileVisible(section, loops);
 
+      // The boost decays on the ticker only while there is boost left.
       let boost = 0;
+      let decaying = false;
+      const decay = () => {
+        boost *= 0.9;
+        if (boost < 0.01) {
+          boost = 0;
+          decaying = false;
+          gsap.ticker.remove(decay);
+        }
+        tracks.forEach((tween) => tween.timeScale(1 + boost));
+      };
       ScrollTrigger.create({
         trigger: section,
         start: "top bottom",
@@ -78,14 +95,12 @@ function GlimpseSection({ ready }: { ready: boolean }) {
             boost,
             Math.min(Math.abs(self.getVelocity()) / 250, 8)
           );
+          if (boost > 0.01 && !decaying) {
+            decaying = true;
+            gsap.ticker.add(decay);
+          }
         },
       });
-      const decay = () => {
-        boost *= 0.93;
-        tracks.forEach((tween) => tween.timeScale(1 + boost));
-      };
-      gsap.ticker.add(decay);
-      if (prefersReducedMotion) tracks.forEach((tween) => tween.pause());
 
       return () => gsap.ticker.remove(decay);
     },
@@ -100,11 +115,12 @@ function GlimpseSection({ ready }: { ready: boolean }) {
       <div
         ref={glowRef}
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 left-1/2 -mt-[55vh] -ml-[55vh] size-[110vh] blur-[90px] will-change-transform"
+        className="pointer-events-none absolute top-1/2 left-1/2 -mt-[55vh] -ml-[55vh] size-[110vh] will-change-transform"
       >
-        <span className="absolute top-[12%] left-[10%] size-[48%] rounded-full bg-[rgba(166,255,0,.16)]" />
-        <span className="absolute top-[34%] right-[8%] size-[42%] rounded-full bg-[rgba(38,140,104,.22)]" />
-        <span className="absolute bottom-[6%] left-[30%] size-[36%] rounded-full bg-[rgba(242,239,234,.06)]" />
+        {/* Soft radial gradients read as blurred light without a blur filter. */}
+        <span className="absolute top-[3%] left-[1%] size-[66%] bg-[radial-gradient(closest-side,rgba(166,255,0,.16),transparent)]" />
+        <span className="absolute top-[25%] -right-[1%] size-[60%] bg-[radial-gradient(closest-side,rgba(38,140,104,.22),transparent)]" />
+        <span className="absolute -bottom-[2%] left-[22%] size-[52%] bg-[radial-gradient(closest-side,rgba(242,239,234,.06),transparent)]" />
       </div>
 
       <div ref={headRef} className="relative mb-[10vh] px-gx">

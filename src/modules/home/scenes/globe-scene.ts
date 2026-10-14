@@ -47,14 +47,21 @@ void main() {
   gl_FragColor = vec4(col, vA);
 }`;
 
+type Scale = { x: number; y: number };
+
 /**
  * Fibonacci-sphere point globe rendered into `canvas`, sized to `frame`.
- * `frame` may be scaled with a CSS transform: the drawing buffer keeps its
- * layout size and only the camera follows the on-screen aspect, so animating
- * the frame never reallocates GPU buffers.
+ * `frame` may be scaled with a CSS transform, reported by `getScale`: the
+ * drawing buffer keeps its layout size and only the camera follows the
+ * on-screen aspect, so animating the frame never touches GPU buffers or
+ * reads layout.
  * Returns a cleanup function, or null when WebGL is unavailable.
  */
-export function createGlobeScene(canvas: HTMLCanvasElement, frame: HTMLElement) {
+export function createGlobeScene(
+  canvas: HTMLCanvasElement,
+  frame: HTMLElement,
+  getScale: () => Scale = () => ({ x: 1, y: 1 })
+) {
   const renderer = createRenderer({ canvas });
   if (!renderer) return null;
   renderer.setClearColor(0x000000, 1);
@@ -113,9 +120,11 @@ export function createGlobeScene(canvas: HTMLCanvasElement, frame: HTMLElement) 
     );
   });
 
+  let width = 0;
+  let height = 0;
   const resize = () => {
-    const width = frame.clientWidth;
-    const height = frame.clientHeight;
+    width = frame.clientWidth;
+    height = frame.clientHeight;
     if (width && height) renderer.setSize(width, height, false);
   };
   const resizeObserver = new ResizeObserver(resize);
@@ -130,17 +139,16 @@ export function createGlobeScene(canvas: HTMLCanvasElement, frame: HTMLElement) 
   renderer.setAnimationLoop((now) => {
     if (!visible) return;
 
-    const rect = frame.getBoundingClientRect();
-    if (rect.width && rect.height) {
-      const nextAspect = rect.width / rect.height;
+    const scale = getScale();
+    if (width && height && scale.x && scale.y) {
+      const nextAspect = (width * scale.x) / (height * scale.y);
       if (Math.abs(nextAspect - aspect) > 1e-4) {
         aspect = nextAspect;
         camera.aspect = aspect;
         camera.updateProjectionMatrix();
       }
       // Keep the point sprites the same on-screen size while scaled down.
-      uniforms.uPR.value =
-        renderer.getPixelRatio() * (frame.clientHeight / rect.height);
+      uniforms.uPR.value = renderer.getPixelRatio() / scale.y;
     }
 
     const t = (now - start) / 1000;

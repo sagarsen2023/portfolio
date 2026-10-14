@@ -1,6 +1,13 @@
 import { Fragment } from "react";
 import type { TextSegment } from "@/types/portfolio";
+import { isLowEndDevice } from "@/utils/media";
 import splitWords from "@/utils/split-words";
+
+// Blurred words animate best on their own GPU layer; budget devices skip the
+// blur (see useWordReveal), so they skip the extra layers too.
+const WORD = isLowEndDevice
+  ? "inline-block"
+  : "inline-block will-change-[transform,filter]";
 
 type RevealWordsProps = {
   text: string | TextSegment[];
@@ -20,9 +27,7 @@ function RevealWords({ text, emphasisClassName = "" }: RevealWordsProps) {
       {word.spaceBefore && " "}
       <span
         data-reveal-word
-        className={`inline-block will-change-[transform,filter] ${
-          word.emphasis ? emphasisClassName : ""
-        }`}
+        className={`${WORD} ${word.emphasis ? emphasisClassName : ""}`}
       >
         {word.text}
       </span>

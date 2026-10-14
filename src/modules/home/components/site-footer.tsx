@@ -29,15 +29,14 @@ function SiteFooter({ ready }: { ready: boolean }) {
       gsap.from("[data-reveal]", {
         yPercent: 100,
         opacity: 0,
-        duration: 1.2,
-        stagger: 0.08,
+        duration: 0.9,
         ease: "expo.out",
         scrollTrigger: { trigger: footerRef.current, start: "top 70%" },
       });
       gsap.from("[data-wordmark-letter]", {
         yPercent: 105,
-        duration: 1.4,
-        stagger: 0.06,
+        duration: 1.1,
+        stagger: 0.05,
         ease: "expo.out",
         scrollTrigger: { trigger: wordmarkRef.current, start: "top 88%" },
       });

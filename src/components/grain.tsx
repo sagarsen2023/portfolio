@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { isLowEndDevice } from "@/utils/media";
 
 const TILE = 180;
 
@@ -22,11 +23,15 @@ function Grain() {
     ref.current.style.backgroundImage = `url(${canvas.toDataURL()})`;
   }, []);
 
+  // The layer overhangs the viewport by one tile on every side: enough for the
+  // jitter to never expose an edge, at a fraction of a 300% overlay's cost.
   return (
     <div
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none fixed -top-full -left-full z-[9900] h-[300%] w-[300%] animate-grain opacity-[.045] motion-reduce:animate-none"
+      className={`pointer-events-none fixed -inset-[180px] z-[9900] opacity-[.045] will-change-transform ${
+        isLowEndDevice ? "" : "animate-grain motion-reduce:animate-none"
+      }`}
     />
   );
 }

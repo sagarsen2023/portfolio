@@ -3,6 +3,7 @@ import portrait from "@/assets/portrait.jpg";
 import { HERO_HEADLINE, PROFILE } from "@/constants/portfolio";
 import useLineSplit from "@/hooks/use-line-split";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { isLowEndDevice } from "@/utils/media";
 import { createHeroScene } from "../scenes/hero-scene";
 
 type HeadlineWord = { text: string; tagline: boolean };
@@ -75,7 +76,10 @@ function HeroSection({ ready, ref }: HeroSectionProps) {
       const canvas = canvasRef.current;
       if (!ready || !canvas) return;
 
-      const disposeScene = createHeroScene(canvas, portrait);
+      // Budget devices keep the static, masked portrait instead of WebGL.
+      const disposeScene = isLowEndDevice
+        ? null
+        : createHeroScene(canvas, portrait);
       if (disposeScene) setWebgl(true);
 
       const scrollTrigger = {
@@ -123,14 +127,14 @@ function HeroSection({ ready, ref }: HeroSectionProps) {
         introPlayedRef.current = true;
         gsap.to("[data-hero-line]", {
           yPercent: 0,
-          duration: 1.3,
-          stagger: 0.12,
+          duration: 1,
+          stagger: 0.09,
           ease: "expo.out",
         });
         gsap.to(canvasRef.current, {
           opacity: 1,
           scale: 1,
-          duration: 2.2,
+          duration: 1.6,
           ease: "expo.out",
         });
       }),

@@ -7,12 +7,14 @@ import {
   EdgesGeometry,
   Group,
   IcosahedronGeometry,
+  InstancedMesh,
   LinearFilter,
   LineBasicMaterial,
   LineSegments,
   Mesh,
+  MeshBasicMaterial,
   MeshStandardMaterial,
-  type Object3D,
+  Object3D,
   PerspectiveCamera,
   PlaneGeometry,
   PointLight,
@@ -34,6 +36,9 @@ import {
 } from "./three-utils";
 
 const PORTRAIT_HEIGHT = 5.7;
+const CUBES = 48;
+const WIRES = 7;
+const DUST = 700;
 
 const portraitVertexShader = /* glsl */ `
 uniform vec2 uMouse;
@@ -84,10 +89,7 @@ type Floater = Object3D & {
  * Returns a cleanup function, or null when WebGL is unavailable.
  */
 export function createHeroScene(container: HTMLElement, portraitUrl: string) {
-  const renderer = createRenderer({
-    alpha: true,
-    powerPreference: "high-performance",
-  });
+  const renderer = createRenderer({ alpha: true });
   if (!renderer) return null;
   container.appendChild(renderer.domElement);
 
@@ -118,8 +120,10 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
     uHover: { value: 0 },
   };
 
+  const portraitWidth = PORTRAIT_HEIGHT * 0.75;
   const portrait = new Mesh(
-    new PlaneGeometry(PORTRAIT_HEIGHT * 0.75, PORTRAIT_HEIGHT, 90, 90),
+    // Dense enough for a smooth bulge; the shader does the displacing.
+    new PlaneGeometry(portraitWidth, PORTRAIT_HEIGHT, 48, 48),
     new ShaderMaterial({
       uniforms,
       transparent: true,
@@ -130,6 +134,14 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
   );
   portrait.renderOrder = 2;
   root.add(portrait);
+
+  // Pointer hits are tested against an invisible two-triangle stand-in
+  // rather than every triangle of the displaced plane.
+  const hitArea = new Mesh(
+    new PlaneGeometry(portraitWidth, PORTRAIT_HEIGHT),
+    new MeshBasicMaterial({ visible: false })
+  );
+  portrait.add(hitArea);
 
   let portraitTexture: Texture | null = null;
   new TextureLoader().load(portraitUrl, (texture) => {
@@ -162,47 +174,65 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
     root.add(block);
   });
 
-  const floaters: Floater[] = [];
-  const track = (object: Object3D) => {
-    object.userData = {
+  // The drifting cubes share one instanced mesh: a single draw call.
+  const cubes = new InstancedMesh(new BoxGeometry(1, 1, 1), dark, CUBES);
+  cubes.frustumCulled = false;
+  root.add(cubes);
+  const cubeStates = Array.from({ length: CUBES }, (_, i) => {
+    const t = i / CUBES;
+    return {
+      size: 0.06 + Math.random() * 0.24 * (1 - t * 0.5),
+      x: 2.6 + (Math.random() - 0.5) * (0.6 + t * 3.4),
+      baseY: 3.3 + t * 3 + Math.random() * 0.4,
+      z: -2.6 + (Math.random() - 0.5) * (0.6 + t * 2.4),
+      rotationX: Math.random() * 3,
+      rotationY: Math.random() * 3,
       spin: Math.random() - 0.5,
-      baseY: object.position.y,
       phase: Math.random() * 6,
     };
-    root.add(object);
-    floaters.push(object as Floater);
+  });
+  const placer = new Object3D();
+  const updateCubes = (t: number) => {
+    cubeStates.forEach((cube, i) => {
+      cube.rotationX += 0.003 + cube.spin * 0.008;
+      cube.rotationY += 0.004;
+      placer.position.set(
+        cube.x,
+        cube.baseY + Math.sin(t * 0.6 + cube.phase) * 0.09,
+        cube.z
+      );
+      placer.rotation.set(cube.rotationX, cube.rotationY, 0);
+      placer.scale.setScalar(cube.size);
+      placer.updateMatrix();
+      cubes.setMatrixAt(i, placer.matrix);
+    });
+    cubes.instanceMatrix.needsUpdate = true;
   };
 
-  for (let i = 0; i < 48; i++) {
-    const t = i / 48;
-    const size = 0.06 + Math.random() * 0.24 * (1 - t * 0.5);
-    const cube = new Mesh(new BoxGeometry(size, size, size), dark);
-    cube.position.set(
-      2.6 + (Math.random() - 0.5) * (0.6 + t * 3.4),
-      3.3 + t * 3 + Math.random() * 0.4,
-      -2.6 + (Math.random() - 0.5) * (0.6 + t * 2.4)
-    );
-    cube.rotation.set(Math.random() * 3, Math.random() * 3, 0);
-    track(cube);
-  }
-
+  const wires: Floater[] = [];
   const wireMaterial = new LineBasicMaterial({
     color: 0xffffff,
     transparent: true,
     opacity: 0.22,
   });
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < WIRES; i++) {
     const size = 0.2 + Math.random() * 0.35;
     const wire = new LineSegments(
       new EdgesGeometry(new BoxGeometry(size, size, size)),
       wireMaterial
-    );
+    ) as unknown as Floater;
     wire.position.set(
       1.2 + Math.random() * 3,
       1.5 + Math.random() * 3,
       -2 + Math.random() * 1.5
     );
-    track(wire);
+    wire.userData = {
+      spin: Math.random() - 0.5,
+      baseY: wire.position.y,
+      phase: Math.random() * 6,
+    };
+    root.add(wire);
+    wires.push(wire);
   }
 
   const lattice = new LineSegments(
@@ -212,7 +242,6 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
   lattice.position.set(-0.3, 0.5, -3.2);
   root.add(lattice);
 
-  const DUST = 700;
   const dustPositions = new Float32Array(DUST * 3);
   for (let i = 0; i < DUST; i++) {
     dustPositions[i * 3] = (Math.random() - 0.5) * 13;
@@ -240,6 +269,7 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
   let hover = 0;
   let hoverTarget = 0;
   let visible = true;
+  let pointer: { x: number; y: number } | null = null;
   const mouseTarget = new Vector2(0.5, 0.5);
   const raycaster = new Raycaster();
   const ndc = new Vector2();
@@ -247,13 +277,21 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
   const onPointerMove = (event: PointerEvent) => {
     targetX = (event.clientX / window.innerWidth) * 2 - 1;
     targetY = (event.clientY / window.innerHeight) * 2 - 1;
+    pointer = { x: event.clientX, y: event.clientY };
+  };
+  window.addEventListener("pointermove", onPointerMove, { passive: true });
+
+  // Hit-tests the latest pointer position once per rendered frame.
+  const updateHover = () => {
+    if (!pointer) return;
     const rect = container.getBoundingClientRect();
     ndc.set(
-      ((event.clientX - rect.left) / rect.width) * 2 - 1,
-      -(((event.clientY - rect.top) / rect.height) * 2 - 1)
+      ((pointer.x - rect.left) / rect.width) * 2 - 1,
+      -(((pointer.y - rect.top) / rect.height) * 2 - 1)
     );
+    pointer = null;
     raycaster.setFromCamera(ndc, camera);
-    const hit = raycaster.intersectObject(portrait)[0];
+    const hit = raycaster.intersectObject(hitArea, false)[0];
     if (hit?.uv) {
       mouseTarget.copy(hit.uv);
       hoverTarget = 1;
@@ -261,7 +299,6 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
       hoverTarget = 0;
     }
   };
-  window.addEventListener("pointermove", onPointerMove);
 
   const resize = () => {
     const width = container.clientWidth;
@@ -283,24 +320,26 @@ export function createHeroScene(container: HTMLElement, portraitUrl: string) {
     if (!visible) return;
     const t = (now - start) / 1000;
 
-    currentX += (targetX - currentX) * 0.05;
-    currentY += (targetY - currentY) * 0.05;
+    updateHover();
+    currentX += (targetX - currentX) * 0.06;
+    currentY += (targetY - currentY) * 0.06;
     root.rotation.y = currentX * 0.22 + Math.sin(t * 0.2) * 0.05;
     root.rotation.x = currentY * 0.1;
 
     uniforms.uTime.value = t;
-    hover += (hoverTarget - hover) * 0.06;
+    hover += (hoverTarget - hover) * 0.08;
     uniforms.uHover.value = hover;
-    uniforms.uMouse.value.lerp(mouseTarget, 0.12);
+    uniforms.uMouse.value.lerp(mouseTarget, 0.15);
 
     lattice.rotation.y = t * 0.05;
     lattice.rotation.x = t * 0.03;
 
-    floaters.forEach((floater) => {
-      const { spin, baseY, phase } = floater.userData;
-      floater.rotation.x += 0.003 + spin * 0.008;
-      floater.rotation.y += 0.004;
-      floater.position.y = baseY + Math.sin(t * 0.6 + phase) * 0.09;
+    updateCubes(t);
+    wires.forEach((wire) => {
+      const { spin, baseY, phase } = wire.userData;
+      wire.rotation.x += 0.003 + spin * 0.008;
+      wire.rotation.y += 0.004;
+      wire.position.y = baseY + Math.sin(t * 0.6 + phase) * 0.09;
     });
 
     dust.rotation.y = t * 0.015;

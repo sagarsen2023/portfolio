@@ -17,7 +17,7 @@ function AboutSection({ ready }: { ready: boolean }) {
       if (!ready) return;
       gsap.from("[data-reveal]", {
         yPercent: 110,
-        duration: 1.2,
+        duration: 0.9,
         ease: "expo.out",
         scrollTrigger: { trigger: subRef.current, start: "top 85%" },
       });

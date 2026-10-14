@@ -38,7 +38,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   // smoothed scroll position never drift apart.
   useLayoutEffect(() => {
     const instance = new Lenis({
-      lerp: prefersReducedMotion ? 1 : 0.085,
+      lerp: prefersReducedMotion ? 1 : 0.12,
       smoothWheel: !prefersReducedMotion,
     });
     const raf = (time: number) => instance.raf(time * 1000);

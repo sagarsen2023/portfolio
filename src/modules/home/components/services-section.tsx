@@ -38,7 +38,11 @@ function ServicesSection({ ready }: { ready: boolean }) {
       const arrowPath = arrowPathRef.current;
       if (!ready || !card || !canvas || !arrowPath || !contextSafe) return;
 
-      const disposeGlobe = createGlobeScene(canvas, card);
+      // The globe follows the card's scale from GSAP's cache, not the DOM.
+      const disposeGlobe = createGlobeScene(canvas, card, () => ({
+        x: Number(gsap.getProperty(card, "scaleX")),
+        y: Number(gsap.getProperty(card, "scaleY")),
+      }));
 
       gsap.set(card, { xPercent: -50, yPercent: -50 });
       gsap.set(uiRef.current, { autoAlpha: 0 });
@@ -52,9 +56,9 @@ function ServicesSection({ ready }: { ready: boolean }) {
         onEnter: contextSafe(() =>
           gsap.to(arrowPath, {
             strokeDashoffset: 0,
-            duration: 1.6,
+            duration: 1.2,
             ease: "expo.out",
-            delay: 0.3,
+            delay: 0.2,
           })
         ),
       });
@@ -62,7 +66,7 @@ function ServicesSection({ ready }: { ready: boolean }) {
       gsap.from(labelRef.current, {
         yPercent: 100,
         opacity: 0,
-        duration: 1.1,
+        duration: 0.9,
         ease: "expo.out",
         scrollTrigger: { trigger: headRef.current, start: "top 85%" },
       });
@@ -93,7 +97,8 @@ function ServicesSection({ ready }: { ready: boolean }) {
           start: "top top",
           end: () => "+=" + window.innerHeight * 6.5,
           pin: true,
-          scrub: 0.6,
+          anticipatePin: 1,
+          scrub: 0.4,
           invalidateOnRefresh: true,
         },
       });
@@ -118,6 +123,8 @@ function ServicesSection({ ready }: { ready: boolean }) {
         const [pill] = q("[data-service-pill]");
         const [dot] = q("[data-service-pill] > i");
         const [count] = q("[data-service-count]");
+        // The dot travels by transform rather than `top`, so no layout per frame.
+        gsap.set(dot, { xPercent: -50, yPercent: -50 });
 
         tl.set(row, { autoAlpha: 1 }, at)
           .fromTo(
@@ -141,8 +148,12 @@ function ServicesSection({ ready }: { ready: boolean }) {
           .fromTo(count, { opacity: 0 }, { opacity: 1, duration: 0.3 }, at + 0.2)
           .fromTo(
             dot,
-            { top: "18%" },
-            { top: "82%", duration: 1.3, ease: "none" },
+            { y: 0 },
+            {
+              y: () => pill.offsetHeight * 0.64,
+              duration: 1.3,
+              ease: "none",
+            },
             at
           );
 
@@ -227,7 +238,7 @@ function ServicesSection({ ready }: { ready: boolean }) {
           <div ref={uiRef} className="absolute inset-0">
             <div
               aria-hidden="true"
-              className="absolute top-5 left-1/2 flex -translate-x-1/2 gap-1 rounded-full border border-[rgba(242,239,234,.08)] bg-[rgba(26,26,26,.75)] p-1 backdrop-blur-[10px]"
+              className="absolute top-5 left-1/2 flex -translate-x-1/2 gap-1 rounded-full border border-[rgba(242,239,234,.08)] bg-[rgba(26,26,26,.92)] p-1"
             >
               <button
                 type="button"
@@ -259,9 +270,9 @@ function ServicesSection({ ready }: { ready: boolean }) {
                   </div>
                   <div
                     data-service-pill
-                    className="relative h-[clamp(140px,17vw,280px)] w-[clamp(56px,5.4vw,96px)] overflow-hidden rounded-full border border-[rgba(242,239,234,.22)] bg-[linear-gradient(180deg,rgba(166,255,0,0),rgba(166,255,0,.14))] backdrop-blur-[6px] mobile:h-[84px] mobile:w-10"
+                    className="relative h-[clamp(140px,17vw,280px)] w-[clamp(56px,5.4vw,96px)] overflow-hidden rounded-full border border-[rgba(242,239,234,.22)] bg-[linear-gradient(180deg,rgba(166,255,0,0),rgba(166,255,0,.14))] mobile:h-[84px] mobile:w-10"
                   >
-                    <i className="absolute top-1/2 left-1/2 aspect-square w-[42%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_30px_var(--color-accent)]" />
+                    <i className="absolute top-[18%] left-1/2 aspect-square w-[42%] rounded-full bg-accent shadow-[0_0_30px_var(--color-accent)]" />
                   </div>
                   <div className="it text-[clamp(24px,3.3vw,60px)] leading-[.95] text-accent uppercase mobile:text-center">
                     <span className="ln">
@@ -284,7 +295,7 @@ function ServicesSection({ ready }: { ready: boolean }) {
                 data-magnetic
                 aria-label="Toggle fullscreen"
                 onClick={() => toggleFullscreen(cardRef.current)}
-                className="inline-flex h-10 items-center gap-2.5 rounded-full border border-[rgba(242,239,234,.3)] bg-[rgba(5,5,5,.5)] px-[18px] font-mono text-[10px] tracking-[.25em] uppercase backdrop-blur-[10px]"
+                className="inline-flex h-10 items-center gap-2.5 rounded-full border border-[rgba(242,239,234,.3)] bg-[rgba(5,5,5,.8)] px-[18px] font-mono text-[10px] tracking-[.25em] uppercase"
               >
                 ⛶ Fullscreen
               </button>

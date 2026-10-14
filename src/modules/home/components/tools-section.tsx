@@ -1,6 +1,6 @@
 import { Fragment, useRef } from "react";
 import { TOOLS } from "@/constants/portfolio";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, playWhileVisible, useGSAP } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/utils/media";
 
 /** "Tools I work with": an endless marquee that slows down under the pointer. */
@@ -10,8 +10,9 @@ function ToolsSection({ ready }: { ready: boolean }) {
 
   useGSAP(
     () => {
+      const section = sectionRef.current;
       const marqueeEl = marqueeRef.current;
-      if (!ready || !marqueeEl) return;
+      if (!ready || !section || !marqueeEl) return;
 
       // Duration scales with the list so the scroll speed stays constant.
       const marquee = gsap.to("[data-marquee-track]", {
@@ -25,6 +26,7 @@ function ToolsSection({ ready }: { ready: boolean }) {
       marqueeEl.addEventListener("pointerenter", slowDown);
       marqueeEl.addEventListener("pointerleave", speedUp);
       if (prefersReducedMotion) marquee.pause();
+      else playWhileVisible(section, [marquee]);
 
       return () => {
         marqueeEl.removeEventListener("pointerenter", slowDown);

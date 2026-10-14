@@ -4,6 +4,9 @@
  *
  * The fold is driven by where the page's corner has been pulled to. `turned`
  * runs from 0 (lying flat) to 1 (turned over past the left edge).
+ *
+ * Per frame it only writes clip paths, transforms and opacities: the paper's
+ * gradient is painted once and stretched, and nothing is blurred.
  */
 
 type Point = { x: number; y: number };
@@ -18,8 +21,10 @@ export interface CurlElements {
   sheet: HTMLElement;
   /** A point on the fold line, rotated so its x axis crosses the fold. */
   fold: HTMLElement;
-  /** Back of the paper, mirrored over the front. */
+  /** Back of the paper, mirrored over the front (clipped to its outline). */
   flap: HTMLElement;
+  /** The paper's shading inside the flap, stretched to the flap's depth. */
+  paper: HTMLElement;
   /** Shadow the lifted paper casts onto the page underneath. */
   cast: HTMLElement;
 }
@@ -27,6 +32,15 @@ export interface CurlElements {
 // How far the leading corner arcs away from its edge mid-turn (× page height).
 const CORNER_ARC: Record<Corner, number> = { bottom: -0.3, top: 0.22 };
 const EPSILON = 0.0005;
+
+// Dark paper: shaded where it bends, with a faint sheen a little further out.
+const PAPER_SHADING = `linear-gradient(90deg,
+  color-mix(in srgb, var(--pbg) 80%, #000) 0%,
+  color-mix(in srgb, var(--pbg) 95%, #f2efea) 10%,
+  color-mix(in srgb, var(--pbg) 86%, #f2efea) 38%,
+  color-mix(in srgb, var(--pbg) 94%, #f2efea) 78%,
+  color-mix(in srgb, var(--pbg) 97%, #f2efea) 100%)`;
+const CAST_SHADOW = "linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6))";
 
 /** Keeps the part of a convex polygon where `side(p) >= 0`. */
 function clipPolygon(points: Point[], side: (p: Point) => number) {
@@ -45,9 +59,9 @@ function clipPolygon(points: Point[], side: (p: Point) => number) {
 }
 
 const toPolygon = (points: Point[]) =>
-  `polygon(${points.map((p) => `${p.x}px ${p.y}px`).join(",")})`;
+  `polygon(${points.map((p) => `${p.x.toFixed(1)}px ${p.y.toFixed(1)}px`).join(",")})`;
 
-/** Sizes the fold layers for a page of `width` × `height`. */
+/** Sizes the fold layers (and paints their gradients) for a `width` × `height` page. */
 export function sizeCurl(els: CurlElements, width: number, height: number) {
   const reach = Math.hypot(width, height);
   const castWidth = Math.round(width * 0.2);
@@ -57,11 +71,18 @@ export function sizeCurl(els: CurlElements, width: number, height: number) {
     width: `${reach}px`,
     height: `${reach * 2}px`,
   });
+  Object.assign(els.paper.style, {
+    position: "absolute",
+    inset: "0",
+    background: PAPER_SHADING,
+    transformOrigin: "0 0",
+  });
   Object.assign(els.cast.style, {
     left: `${-castWidth}px`,
     top: `${-reach}px`,
     width: `${castWidth}px`,
     height: `${reach * 2}px`,
+    background: CAST_SHADOW,
   });
 }
 
@@ -73,7 +94,7 @@ export function renderCurl(
   width: number,
   height: number,
 ) {
-  const { page, sheet, fold, flap, cast } = els;
+  const { page, sheet, fold, flap, paper, cast } = els;
 
   if (turned >= 1 - EPSILON) {
     page.style.visibility = "hidden";
@@ -130,18 +151,11 @@ export function renderCurl(
   sheet.style.clipPath = toPolygon(flat.map(toPage));
 
   fold.style.visibility = "visible";
-  fold.style.transform = `translate(${mid.x}px, ${mid.y}px) rotate(${Math.atan2(across.y, across.x)}rad)`;
+  fold.style.transform = `translate(${mid.x.toFixed(1)}px, ${mid.y.toFixed(1)}px) rotate(${Math.atan2(across.y, across.x)}rad)`;
 
   flap.style.clipPath = toPolygon(back.map((p) => ({ x: p.x, y: p.y + reach })));
-  // Dark paper: shaded where it bends, with a faint sheen a little further out.
-  flap.style.background = `linear-gradient(90deg,
-    color-mix(in srgb, var(--pbg) 80%, #000) 0px,
-    color-mix(in srgb, var(--pbg) 95%, #f2efea) ${depth * 0.1}px,
-    color-mix(in srgb, var(--pbg) 86%, #f2efea) ${depth * 0.38}px,
-    color-mix(in srgb, var(--pbg) 94%, #f2efea) ${depth * 0.78}px,
-    color-mix(in srgb, var(--pbg) 97%, #f2efea) ${depth}px)`;
-
-  cast.style.background = `linear-gradient(90deg, transparent, rgba(0, 0, 0, ${0.6 * lift}))`;
+  paper.style.transform = `scaleX(${depth / reach})`;
+  cast.style.opacity = String(lift);
 }
 
 /** Clears everything the curl wrote. */
@@ -150,5 +164,6 @@ export function resetCurl(els: CurlElements) {
   els.sheet.style.clipPath = "";
   els.fold.style.cssText = "";
   els.flap.style.cssText = "";
+  els.paper.style.cssText = "";
   els.cast.style.cssText = "";
 }

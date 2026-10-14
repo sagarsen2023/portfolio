@@ -24,9 +24,9 @@ const PART = "overflow-hidden pb-[.1em]";
 // Projects are a stack of pages, earliest on top. Scrolling down peels the
 // current page up from its bottom corner and turns it over; scrolling up
 // brings the previous page back, curling in from its top corner.
-const TURN_OVER = { corner: "bottom", duration: 1.25, ease: "power2.inOut" } as const;
-const TURN_BACK = { corner: "top", duration: 1.05, ease: "power3.out" } as const;
-const FLIP_STAGGER = 0.16;
+const TURN_OVER = { corner: "bottom", duration: 0.95, ease: "power2.inOut" } as const;
+const TURN_BACK = { corner: "top", duration: 0.8, ease: "power3.out" } as const;
+const FLIP_STAGGER = 0.1;
 
 const range = (from: number, to: number) =>
   Array.from({ length: to - from }, (_, i) => from + i);
@@ -43,6 +43,7 @@ function ProjectShot({ project }: { project: Project }) {
             data-shot-inner
             src={project.image}
             loading="lazy"
+            decoding="async"
             alt={`${project.title} screenshot`}
             className="absolute -inset-[4%] h-[108%] w-[108%] max-w-none object-cover"
           />
@@ -138,9 +139,12 @@ function ProjectPage({ project }: { project: Project }) {
         aria-hidden="true"
         className="pointer-events-none invisible absolute top-0 left-0 z-[5] origin-top-left mobile:hidden"
       >
-        <div data-page-cast className="absolute" />
-        <div className="[filter:drop-shadow(0_0_22px_rgba(0,0,0,.6))]">
-          <div data-page-flap className="absolute" />
+        <div data-page-cast className="absolute will-change-[opacity]" />
+        <div
+          data-page-flap
+          className="absolute overflow-hidden will-change-transform"
+        >
+          <div data-page-paper className="will-change-transform" />
         </div>
       </div>
     </div>
@@ -171,10 +175,9 @@ function WorkSection({ ready }: { ready: boolean }) {
       gsap.from(gsap.utils.toArray("[data-approach-reveal]", intro), {
         yPercent: 100,
         opacity: 0,
-        duration: 1.3,
-        stagger: 0.1,
+        duration: 0.9,
         ease: "expo.out",
-        scrollTrigger: { trigger: intro, start: "top 65%" },
+        scrollTrigger: { trigger: intro, start: "top 70%" },
       });
 
       ScrollTrigger.create({
@@ -209,6 +212,7 @@ function WorkSection({ ready }: { ready: boolean }) {
               sheet: part("sheet"),
               fold: part("fold"),
               flap: part("flap"),
+              paper: part("paper"),
               cast: part("cast"),
             } satisfies CurlElements,
             // 0 = lying flat, 1 = turned over.
@@ -265,6 +269,7 @@ function WorkSection({ ready }: { ready: boolean }) {
           start: "top top",
           end: () => "+=" + window.innerHeight * count,
           pin: true,
+          anticipatePin: 1,
           onUpdate: (self) =>
             turnTo(Math.min(count - 1, Math.floor(self.progress * count))),
         });
@@ -282,10 +287,10 @@ function WorkSection({ ready }: { ready: boolean }) {
           gsap.from(gsap.utils.toArray("[data-part] > *", page), {
             yPercent: 100,
             opacity: 0,
-            stagger: 0.06,
-            duration: 1.1,
+            stagger: 0.05,
+            duration: 0.9,
             ease: "expo.out",
-            scrollTrigger: { trigger: page, start: "top 70%" },
+            scrollTrigger: { trigger: page, start: "top 75%" },
           }),
         );
       });

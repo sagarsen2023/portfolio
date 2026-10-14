@@ -28,16 +28,16 @@ function SiteHeader({ logoRef }: SiteHeaderProps) {
     timelineRef.current = gsap
       .timeline({ paused: true, defaults: { ease: "expo.inOut" } })
       .set(menu, { visibility: "visible" })
-      .to(menu, { clipPath: "inset(0 0 0% 0)", duration: 0.9 })
+      .to(menu, { clipPath: "inset(0 0 0% 0)", duration: 0.7 })
       .from(
         q("[data-menu-link]"),
-        { yPercent: 110, duration: 1, stagger: 0.06, ease: "expo.out" },
-        "-=.35"
+        { yPercent: 110, duration: 0.8, stagger: 0.05, ease: "expo.out" },
+        "-=.3"
       )
       .from(
         q("[data-menu-foot]"),
-        { opacity: 0, y: 20, duration: 0.6, ease: "power3.out" },
-        "-=.7"
+        { opacity: 0, y: 20, duration: 0.5, ease: "power3.out" },
+        "-=.55"
       );
   });
 

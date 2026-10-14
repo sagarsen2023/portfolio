@@ -93,41 +93,41 @@ function SplashScreen({
         const to = logoTargetRef.current?.getBoundingClientRect() ?? from;
         gsap
           .timeline({ onComplete: finish })
-          .to(roleRef.current, { opacity: 0, y: -10, duration: 0.4 })
+          .to(roleRef.current, { opacity: 0, y: -10, duration: 0.3 })
           .to(
             logo,
             {
               x: `+=${to.left + to.width / 2 - (from.left + from.width / 2)}`,
               y: `+=${to.top + to.height / 2 - (from.top + from.height / 2)}`,
               scale: to.width / from.width,
-              duration: 1.3,
+              duration: 1,
               ease: "expo.inOut",
             },
             0
           )
-          .to(letters, { strokeWidth: 0, duration: 0.6 }, 0)
+          .to(letters, { strokeWidth: 0, duration: 0.45 }, 0)
           .to(
             backdropRef.current,
-            { clipPath: "inset(0 0 100% 0)", duration: 1.2, ease: "expo.inOut" },
-            0.2
+            { clipPath: "inset(0 0 100% 0)", duration: 0.95, ease: "expo.inOut" },
+            0.12
           )
-          .add(reveal, 0.75)
+          .add(reveal, 0.55)
           .add(
             () => document.documentElement.classList.remove("is-loading"),
-            1.25
+            0.95
           )
-          .to(logo, { opacity: 0, duration: 0.15 }, 1.3);
+          .to(logo, { opacity: 0, duration: 0.12 }, 1);
       });
 
       gsap
         .timeline()
         .to(letters, {
           strokeDashoffset: 0,
-          duration: 1.1,
-          stagger: 0.1,
+          duration: 0.8,
+          stagger: 0.06,
           ease: "power2.inOut",
         })
-        .to(letters, { fillOpacity: 1, duration: 0.6, ease: "power2.out" })
+        .to(letters, { fillOpacity: 1, duration: 0.45, ease: "power2.out" })
         .add(() => {
           letters[0].style.fill = `url(#${SHEEN_ID})`;
         }, "<")
@@ -144,18 +144,18 @@ function SplashScreen({
               x1: first.x + first.width * 1.2,
               x2: first.x + first.width * 2.2,
             },
-            duration: 1.1,
+            duration: 0.8,
             ease: "power2.inOut",
           },
           "<"
         )
-        .to(roleRef.current, { opacity: 1, duration: 0.7 }, "<.15")
+        .to(roleRef.current, { opacity: 1, duration: 0.5 }, "<.1")
         .to(
           roleLineRef.current,
-          { scaleX: 1, duration: 0.9, ease: "expo.out" },
-          "<.2"
+          { scaleX: 1, duration: 0.6, ease: "expo.out" },
+          "<.12"
         )
-        .to({}, { duration: 0.35 })
+        .to({}, { duration: 0.2 })
         .add(exit);
     },
     { dependencies: [ready] }
